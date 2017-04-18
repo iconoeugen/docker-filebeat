@@ -429,7 +429,7 @@ bulk_queue_size: ${BULK_QUEUE_SIZE:0}
 #-------------------------- Elasticsearch output -------------------------------
 output.elasticsearch:
   # Boolean flag to enable or disable the output module.
-  enabled: ${OUTPUT_ELASTICSEARCH:false}
+  enabled: ${OUTPUT_ELASTICSEARCH_ENABLED:false}
 
   # Array of hosts to connect to.
   # Scheme and port can be left out and will be set to the default (http and 9200)
