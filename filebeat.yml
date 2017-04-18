@@ -318,7 +318,7 @@ filebeat.prospectors:
   #close_timeout: 0
 
   # Defines if prospectors is enabled
-  #enabled: true
+  enabled: ${PROSPECTORS_LOG_ENABLED:false}
 
 #----------------------------- Stdin prospector -------------------------------
 # Configuration to use stdin input
