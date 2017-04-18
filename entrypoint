@@ -36,6 +36,12 @@ for f in ${files} ; do
   set +o allexport
 done
 
+# Take ownership of config file
+cp -p ${CONF_DIR}/filebeat.yml ${CONF_DIR}/filebeat.yml.copy
+mv ${CONF_DIR}/filebeat.yml.copy ${CONF_DIR}/filebeat.yml
+
+chmod 0600 ${CONF_DIR}/filebeat.yml
+
 # As argument is not related to elasticsearch,
 # then assume that user wants to run his own process,
 # for example a `bash` shell to explore this image
