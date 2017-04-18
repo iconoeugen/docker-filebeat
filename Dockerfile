@@ -24,7 +24,7 @@ COPY filebeat.yml ${CONF_DIR}/filebeat.yml
 
 RUN useradd -d ${HOME} -g root -m -N -s /sbin/nologin ${USER} && \
     for path in ${HOME} ${CONF_DIR} ${DATA_DIR} ${LOGS_DIR} ${INIT_DIR}; do \
-      mkdir -p "$path" && chmod -R ug+rwX "$path" && chown -R $USER:root "$path"; \
+      mkdir -p "$path" && chmod -R ug+rwX,o-rwx "$path" && chown -R root:root "$path"; \
     done
 
 USER 1000

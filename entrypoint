@@ -19,6 +19,20 @@ function substenv {
   cat "${temp_file}" > "${out_file}" && rm -f "${temp_file}"
 }
 
+function take_ownership {
+  local target=$1
+  local target_dir=$(dirname $target)
+  local target_base=$(basename $target)
+  local tmp_dir=$(mktemp -d -p $target_dir)
+  cp -R -p $target $tmp_dir/
+  # keep a backup till cleanup
+  mv $target $target.bak
+  # finally restore target
+  mv $tmp_dir/$target_base $target_dir/
+  # cleanup
+  rm -rf $tmp_dir $target.bak
+}
+
 # Map user to current UID/GID
 export USER_ID="$(id -u)"
 export GROUP_ID="$(id -g)"
@@ -37,12 +51,12 @@ for f in ${files} ; do
 done
 
 # Take ownership of config file
-cp -p ${CONF_DIR}/filebeat.yml ${CONF_DIR}/filebeat.yml.copy
-mv ${CONF_DIR}/filebeat.yml.copy ${CONF_DIR}/filebeat.yml
-
+take_ownership ${CONF_DIR}/filebeat.yml
 chmod 0600 ${CONF_DIR}/filebeat.yml
 
-# As argument is not related to elasticsearch,
+take_ownership ${HOME}/module
+chmod -R u+rwX,g+rX,g-w,o-rwX ${HOME}/module
+
 # then assume that user wants to run his own process,
 # for example a `bash` shell to explore this image
 exec "$@"
