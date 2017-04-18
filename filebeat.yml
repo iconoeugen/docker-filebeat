@@ -46,7 +46,7 @@ filebeat.modules:
 
   # Error logs
   error:
-    enabled: ${MODULE_APACHE2_ERROR_ENABLED:true}
+    enabled: ${MODULE_APACHE2_ERROR_ENABLED:false}
 
     # Set custom paths for the log files. If left empty,
     # Filebeat will choose the paths depending on your OS.
@@ -71,8 +71,8 @@ filebeat.modules:
     #prospector:
 
   # Slow logs
-  #slowlog:
-    #enabled: true
+  slowlog:
+    enabled: ${MODULE_MYSQL_SLOWLOG_ENABLED:false}
 
     # Set custom paths for the log files. If left empty,
     # Filebeat will choose the paths depending on your OS.
@@ -461,7 +461,7 @@ output.elasticsearch:
   #pipeline: ""
 
   # Optional HTTP Path
-  path: "${OUTPUT_ELASTICSEARCH_PATH/elasticsearch}"
+  path: "${OUTPUT_ELASTICSEARCH_PATH:/elasticsearch}"
 
   # Custom HTTP headers to add to each request
   #headers:
