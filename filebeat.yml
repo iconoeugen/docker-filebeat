@@ -480,7 +480,7 @@ output.elasticsearch:
   #bulk_max_size: 50
 
   # Configure http request timeout before failing an request to Elasticsearch.
-  timeout: ${OUTPUT_ELASTICSEARCH_TIMEOUT:90}
+  timeout: ${OUTPUT_ELASTICSEARCH_TIMEOUT:90s}
 
   # The number of seconds to wait for new events between two bulk API index requests.
   # If `bulk_max_size` is reached before this interval expires, addition bulk index
