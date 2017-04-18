@@ -480,12 +480,12 @@ output.elasticsearch:
   #bulk_max_size: 50
 
   # Configure http request timeout before failing an request to Elasticsearch.
-  #timeout: 90
+  timeout: ${OUTPUT_ELASTICSEARCH_TIMEOUT:90}
 
   # The number of seconds to wait for new events between two bulk API index requests.
   # If `bulk_max_size` is reached before this interval expires, addition bulk index
   # requests are made.
-  #flush_interval: 1s
+  flush_interval: ${OUTPUT_ELASTICSEARCH_FLUSH_INTERVAL:1s}
 
   # A template is used to set the mapping in Elasticsearch
   # By default template loading is enabled and the template is loaded.
