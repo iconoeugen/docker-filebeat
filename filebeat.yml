@@ -559,7 +559,7 @@ output.logstash:
   #compression_level: 3
 
   # Optional load balance the events between the Logstash hosts
-  #loadbalance: true
+  loadbalance: ${OUTPUT_LOGSTASH_LOADBALANCE:true}
 
   # Number of batches to be send asynchronously to logstash while processing
   # new batches.
