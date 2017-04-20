@@ -841,27 +841,27 @@ output.logstash:
 
 
 #------------------------------- File output -----------------------------------
-#output.file:
+output.file:
   # Boolean flag to enable or disable the output module.
-  #enabled: true
+  enabled: ${OUTPUT_FILE_ENABLED:false}
 
   # Path to the directory where to save the generated files. The option is
   # mandatory.
-  #path: "/tmp/filebeat"
+  path: ${OUTPUT_FILE_PATH:/tmp/filebeat}
 
   # Name of the generated files. The default is `filebeat` and it generates
   # files: `filebeat`, `filebeat.1`, `filebeat.2`, etc.
-  #filename: filebeat
+  filename: ${OUTPUT_FILE_FILENAME:filebeat}
 
   # Maximum size in kilobytes of each file. When this size is reached, and on
   # every filebeat restart, the files are rotated. The default value is 10240
   # kB.
-  #rotate_every_kb: 10000
+  rotate_every_kb: ${OUTPUT_ROTATE_EVERY_KB:10000}
 
   # Maximum number of files under path. When this number of files is reached,
   # the oldest file is deleted and the rest are shifted from last to first. The
   # default is 7 files.
-  #number_of_files: 7
+  number_of_files: ${OUTPUT_FILE_NUMBER_OF_FILES:7}
 
 
 #----------------------------- Console output ---------------------------------
@@ -902,17 +902,17 @@ path.logs: ${LOGS_DIR}
 # These settings control loading the sample dashboards to the Kibana index. Loading
 # the dashboards is disabled by default and can be enabled either by setting the
 # options here, or by using the `-setup` CLI flag.
-#dashboards.enabled: false
+dashboards.enabled: ${DASHBOARDS_ENABLED:false}
 
 # The URL from where to download the dashboards archive. By default this URL
 # has a value which is computed based on the Beat name and version. For released
 # versions, this URL points to the dashboard archive on the artifacts.elastic.co
 # website.
-#dashboards.url:
+dashboards.url: ${DASHBOARDS_URL:null}
 
 # The directory from where to read the dashboards. It is used instead of the URL
 # when it has a value.
-#dashboards.directory:
+#dashboards.directory: ${DASHBOARDS_DIRECTORY:null}
 
 # The file archive (zip file) from where to read the dashboards. It is used instead
 # of the URL when it has a value.
@@ -928,14 +928,14 @@ path.logs: ${LOGS_DIR}
 # In case the archive contains the dashboards from multiple Beats, this lets you
 # select which one to load. You can load all the dashboards in the archive by
 # setting this to the empty string.
-#dashboards.beat: filebeat
+dashboards.beat: ${DASHBOARDS_BEAT:filebeat}
 
 # The name of the Kibana index to use for setting the configuration. Default is ".kibana"
-#dashboards.kibana_index: .kibana
+dashboards.kibana_index: ${DASHBOARDS_KIBANA_INDEX:.kibana}
 
 # The Elasticsearch index name. This overwrites the index name defined in the
 # dashboards and index pattern. Example: testbeat-*
-#dashboards.index:
+dashboards.index: ${DASHBOARDS_INDEX:""}
 
 #================================ Logging ======================================
 # There are three options for the log output: syslog, file, stderr.
@@ -944,24 +944,24 @@ path.logs: ${LOGS_DIR}
 
 # Sets log level. The default log level is info.
 # Available log levels are: critical, error, warning, info, debug
-#logging.level: info
+logging.level: ${LOGGING_LEVEL:info}
 
 # Enable debug output for selected components. To enable all selectors use ["*"]
 # Other available selectors are "beat", "publish", "service"
 # Multiple selectors can be chained.
-#logging.selectors: [ ]
+logging.selectors: ${LOGGING_SELECTORS:[ ]}
 
 # Send all logging output to syslog. The default is false.
-#logging.to_syslog: true
+logging.to_syslog: ${LOGGING_TO_SYSLOG:true}
 
 # If enabled, filebeat periodically logs its internal metrics that have changed
 # in the last period. For each metric that changed, the delta from the value at
 # the beginning of the period is logged. Also, the total values for
 # all non-zero internal metrics are logged on shutdown. The default is true.
-#logging.metrics.enabled: true
+logging.metrics.enabled: ${LOGGING_METRICS_ENABLED:true}
 
 # The period after which to log the internal metrics. The default is 30s.
-#logging.metrics.period: 30s
+logging.metrics.period: ${LOGGING_METRICS_PERIOD:30s}
 
 # Logging to rotating files files. Set logging.to_files to false to disable logging to
 # files.
@@ -969,14 +969,14 @@ logging.to_files: true
 logging.files:
   # Configure the path where the logs are written. The default is the logs directory
   # under the home path (the binary location).
-  #path: /var/log/filebeat
+  path: ${LOGGING_FILES_PATH:/var/log/filebeat}
 
   # The name of the files where the logs are written to.
-  #name: filebeat
+  name: ${LOGGING_FILES_NAME:filebeat}
 
   # Configure log file size limit. If limit is reached, log file will be
   # automatically rotated
-  #rotateeverybytes: 10485760 # = 10MB
+  rotateeverybytes: ${LOGGING_FILES_ROTATEEVERYBYTES:10485760} # = 10MB
 
   # Number of rotated log files to keep. Oldest files will be deleted first.
-  #keepfiles: 7
+  keepfiles: ${LOGGING_FILES_KEEPFILES:7}
